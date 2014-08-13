@@ -7,7 +7,7 @@ from lib.py_topologyCheck_fonctions import topologyCheck
 
 ##Variables
 
-# Rï¿½pertoire de l'environnement de travail"
+# Répertoire de l'environnement de travail"
 workspace = "C:/Users/serries/Desktop/testControle_cours/"
 
 # CSV
@@ -19,7 +19,7 @@ csvFeature_file = csv_folder + "listFeature.csv"
 csvRule_file = csv_folder + "listRule.csv"
 csvRuleBDTopage = csv_folder + "listRuleBDTopage.csv"
 
-# Gï¿½odatabase topologie
+# Géodatabase topologie
 localisation = "0"
 geodatabase_topage="Controle_Topage_" + localisation + ".gdb"
 
@@ -37,19 +37,19 @@ topology_name = "Topologie"
 
 ### LANCEMENT DES SCRIPTS ###
 
-# Crï¿½ation de l'objet objets
+# Création de l'objet objets
 topologyTopageCheck = topologyCheck()
 
-# Crï¿½ation de la gï¿½odatabase de traitement
+# Création de la géodatabase de traitement
 topologyTopageCheck.createFramework(workspace,geodatabase_topage,dataset_source,dataset_topology,file_srid)
 
-# Ajout des fichiers ï¿½ traiter dans le dataset source
+# Ajout des fichiers à traiter dans le dataset source
 topologyTopageCheck.add_sourceFeatureFromCSV(workspace + geodatabase_topage + "/" + dataset_source + "/",csvFeature_file,file_srid)
 
-# Ajout des donnï¿½es ï¿½ traiter dans le dataset topology
-topologyTopageCheck.add_topologyFeatureFromSourceDataset(topology_name,workspace + geodatabase_topage + " / " + dataset_source + " / ",workspace + geodatabase_topage + " / " + dataset_topology + " / ",csvFeature_file)
+# Ajout des données à traiter dans le dataset topology
+topologyTopageCheck.add_topologyFeatureFromSourceDataset(topology_name,workspace + geodatabase_topage + "/" + dataset_source + "/",workspace + geodatabase_topage + "/" + dataset_topology + "/",csvFeature_file)
 
-# Vï¿½rification de la topologie
+# Vérification de la topologie
 topologyTopageCheck.checkTopology(topology_name,workspace + geodatabase_topage + "/" + dataset_topology + "/",csvFeature_file,csvRule_file,csvRuleBDTopage)
 
-raw_input()
+#raw_input()
