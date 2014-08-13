@@ -52,4 +52,4 @@ topologyTopageCheck.add_topologyFeatureFromSourceDataset(topology_name,workspace
 # V�rification de la topologie
 topologyTopageCheck.checkTopology(topology_name,workspace + geodatabase_topage + "/" + dataset_topology + "/",csvFeature_file,csvRule_file,csvRuleBDTopage)
 
-#raw_input()
+raw_input()
