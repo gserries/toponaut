@@ -7,10 +7,7 @@ Created on 25 août 2014
 import csv
 import arcpy
 
-from py_arcpy_geodatabase import geodatabase
-from py_arcpy_dataset import dataset  
 from py_arcpy_feature import feature
-
 from py_geometry_fonctions import Geometry 
 
 
@@ -24,11 +21,28 @@ class geometryCheck:
         '''
         Constructor
         '''
-    def checkGeometry(self,geometry_name,topology_folder,geometry_folder,csvGeometryFeature_file):        
-        geometryTopage = Geometry()
-    
-        self.add_geometryFeatureFromTopologyDataset(geometry_name,topology_folder, geometry_folder, csvGeometryFeature_file)
-        #geometryTopage.add_feature2ArcGISGeometry(topology_folder,topology_name,feature)      
+        
+    ## MERGE D'UNE LISTE DE FICHIERS DANS UN REPERTOIRE SOURCE
+    def feature_dictionary(self,csvGeometryFeature_file,geometry_folder):
+        
+        featureTopage = feature()
+        
+        # Ajout des tables
+        geometryFeature_list = open(csvGeometryFeature_file, "rb")
+        try:
+            feature_dictionary = {}
+            # Liste des fichiers shape
+            feature_reader = csv.reader(geometryFeature_list,delimiter=';')
+            # Ajout des fichiers dans le featureclasse de la topologie
+            for feature_row in feature_reader:
+                # Non prise en compte la première ligne de titre
+                if feature_reader.line_num<>1:
+                    if featureTopage.checkPresence(geometry_folder + feature_row[1]) == "True":
+                        feature_dictionary[feature_row[0]] = feature_row[1]
+        finally:
+            geometryFeature_list.close() 
+            
+        return feature_dictionary        
 
         
     def add_geometryFeatureFromTopologyDataset(self,geometry_name,topology_folder,geometry_folder,csvGeometryFeature_file):
@@ -55,3 +69,12 @@ class geometryCheck:
                         if arcpy.Exists(geometry_folder + "Network_line") and arcpy.Exists(topology_folder + feature_row[2]):
                             arcpy.Append_management(topology_folder + feature_row[2],geometry_folder + "Network_line","NO_TEST","#","#")                    
         geometryFeature_list.close()
+      
+        
+    def checkGeometry(self,geometry_name,geometry_folder,csvGeometryFeature_file):      
+        geometryTopage = Geometry()
+          
+        geometryFeature_dictionary = self.feature_dictionary(csvGeometryFeature_file, geometry_folder)
+        print geometryFeature_dictionary
+    
+        geometryTopage.check(geometry_name,geometry_folder,geometryFeature_dictionary)    

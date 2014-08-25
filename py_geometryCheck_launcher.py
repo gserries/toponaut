@@ -31,13 +31,21 @@ dataset_geometry="geometry"
 # Fichier pour la reference spatiale de la geometrie
 file_srid = "D:/ONEMA_GS/04_Produit/controleTopo/file/shape/TRONCON_COURS_EAU.SHP"
 
+# Fichier de la laisse
+file_laisse = "LandWaterBoundary_line"
+
 ''' Nom de la géométrie '''
 geometry_name = "Geometrie"
 
 ### LANCEMENT DES SCRIPTS ###
 
-# Cr�ation de l'objet objets
+# Création de l'objet objets
 geometryTopageCheck = geometryCheck()
 
-# V�rification de la geometrie (continuité du réseau)
-geometryTopageCheck.checkGeometry(geometry_name,workspace + geodatabase_topage + "/" + dataset_topology + "/",workspace + geodatabase_topage + "/" + dataset_geometry + "/",csvGeometryFeature_file)
+# Vérification de la geometrie (continuité du réseau)
+#geometryTopageCheck.add_geometryFeatureFromTopologyDataset(geometry_name,workspace + geodatabase_topage + "/" + dataset_topology + "/", workspace + geodatabase_topage + "/" + dataset_geometry + "/", csvGeometryFeature_file)
+
+# Check de la géométrie
+geometryTopageCheck.checkGeometry(geometry_name, workspace + geodatabase_topage + "/" + dataset_geometry + "/", csvGeometryFeature_file,file_laisse)
+
+

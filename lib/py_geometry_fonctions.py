@@ -6,6 +6,7 @@ Created on 25 août 2014
 '''
 ## Chargement des librairies Pythons
 import arcpy
+from py_arcpy_geodatabase import geodatabase  
 
 class Geometry:
     '''
@@ -31,21 +32,41 @@ class Geometry:
         for oldGeometryFile in oldGeometry :
             arcpy.Delete_management(geometry_folder + oldGeometryFile)
             
-
-    def add_feature2ArcGISGeometry(self,topology_folder,topology_name,feature):
+            
+    def check(self,geometry_name,geometry_folder,geometryFeature_dictionary,file_laisse=""):
         
-        Network_point="HydroNode_point"
-        Network_line="WatercourseLink_line"
-        NetworkSeparetedCrossing_line="WatercourseSeparetedCrossing_line"
+        geodatabaseTopage = geodatabase() 
+        geodatabasePath = geodatabaseTopage.path(geometry_folder)
         
-        
-
-        arcpy.AddFeatureClassToTopology_management(topology_folder + topology_name,topology_folder + feature, "1", "1")
-    
-    def check(self,database,dataset_topology,dataset_geometry,file_name,geometry_name,file_laisse=""):
         arcpy.env.overwriteOutput = True
+    
+        for feature in geometryFeature_dictionary.itervalues():
+            if arcpy.Exists(geodatabasePath + "/" + feature + "_BUILDERR"):
+                arcpy.Delete_management(geodatabasePath + "/" + feature + "_BUILDERR")            
+    
+        # Sélection des entités en jointure avec la laisse ou de celles qui ont l'altitude la plus basse
+        print("Création du fichier de l'exutoire")    
+        arcpy.MakeFeatureLayer_management(geometry_folder + geometryFeature_dictionary[2], 'lyr')
         
-        folder_topology = database + "/" + dataset_topology
+        if file_laisse!="":
+            arcpy.SelectLayerByLocation_management('lyr','INTERSECT',file_laisse,selection_type="NEW_SELECTION")
+        
+        if file_laisse=="" or arcpy.GetCount_management('lyr')==0:
+            print "le compte est : " + arcpy.GetCount_management('lyr')
+            
+        print "le compte est : " + arcpy.GetCount_management('lyr')     
+            
+        # Suppression du layer
+        arcpy.SelectLayerByAttribute_management('lyr', "CLEAR_SELECTION") 
+        arcpy.Delete_management("lyr")  
+        
+        
+        
+                            
+            
+    def check2(self,database,dataset_topology,dataset_geometry,file_name,geometry_name,file_laisse=""):
+        arcpy.env.overwriteOutput = True
+
         folder_geometry= database + "/" + dataset_geometry
         
         # Suppression de la géometrie si elle existe
