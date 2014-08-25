@@ -8,7 +8,6 @@ from py_arcpy_geodatabase import geodatabase
 from py_arcpy_dataset import dataset  
 from py_arcpy_feature import feature
 from py_topology_fonctions import topology
-from py_geometry_fonctions import Geometry 
  
 class topologyCheck:
       
