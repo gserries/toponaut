@@ -44,7 +44,7 @@ class topology:
 
         # Règle ARCGIS sur 2 objets                               
         if rule['arcgisBool'] == "true" and rule['fonction'] <> "" and rule['feature2Bool'] == "true" and feature_dictionary[ruleBDtopage['feature2Id']]['fileBool'] == 'True':
-            print ruleBDtopage['topologyTexte'] + " => " + rule['fonction']
+            #print ruleBDtopage['topologyTexte'] + " => " + rule['fonction']
             # Ajout de la règle...
             arcpy.AddRuleToTopology_management(topology_folder + topology_name,rule['fonction'],topology_folder + feature['name'],"",topology_folder + feature_dictionary[ruleBDtopage['feature2Id']]['name'],"")
             ruleGS_dictionnary[ruleBDtopage['topologyTexte']] = " voir le fichier " + topology_name + " dans ARCGIS"
