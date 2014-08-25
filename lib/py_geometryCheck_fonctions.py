@@ -71,10 +71,9 @@ class geometryCheck:
         geometryFeature_list.close()
       
         
-    def checkGeometry(self,geometry_name,geometry_folder,csvGeometryFeature_file):      
+    def checkGeometry(self,geometry_name,geometry_folder,csvGeometryFeature_file,file_laisse):      
         geometryTopage = Geometry()
           
         geometryFeature_dictionary = self.feature_dictionary(csvGeometryFeature_file, geometry_folder)
-        print geometryFeature_dictionary
     
-        geometryTopage.check(geometry_name,geometry_folder,geometryFeature_dictionary)    
+        geometryTopage.check(geometry_name,geometry_folder,geometryFeature_dictionary,file_laisse)    

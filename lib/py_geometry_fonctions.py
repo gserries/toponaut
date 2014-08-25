@@ -45,8 +45,11 @@ class Geometry:
                 arcpy.Delete_management(geodatabasePath + "/" + feature + "_BUILDERR")            
     
         # Sélection des entités en jointure avec la laisse ou de celles qui ont l'altitude la plus basse
-        print("Création du fichier de l'exutoire")    
-        arcpy.MakeFeatureLayer_management(geometry_folder + geometryFeature_dictionary[2], 'lyr')
+        print("Création du fichier de l'exutoire")
+        arcpy.MakeFeatureLayer_management(geometry_folder + geometryFeature_dictionary['2'], 'lyr')
+        
+        print geometry_folder + geometryFeature_dictionary['2']
+        print file_laisse
         
         if file_laisse!="":
             arcpy.SelectLayerByLocation_management('lyr','INTERSECT',file_laisse,selection_type="NEW_SELECTION")
@@ -54,7 +57,7 @@ class Geometry:
         if file_laisse=="" or arcpy.GetCount_management('lyr')==0:
             print "le compte est : " + arcpy.GetCount_management('lyr')
             
-        print "le compte est : " + arcpy.GetCount_management('lyr')     
+        print arcpy.GetCount_management('lyr')     
             
         # Suppression du layer
         arcpy.SelectLayerByAttribute_management('lyr', "CLEAR_SELECTION") 

@@ -32,7 +32,7 @@ dataset_geometry="geometry"
 file_srid = "D:/ONEMA_GS/04_Produit/controleTopo/file/shape/TRONCON_COURS_EAU.SHP"
 
 # Fichier de la laisse
-file_laisse = "LandWaterBoundary_line"
+file_laisse = workspace + geodatabase_topage + "/" + dataset_topology + "/" + "LandWaterBoundary_line"
 
 ''' Nom de la géométrie '''
 geometry_name = "Geometrie"
