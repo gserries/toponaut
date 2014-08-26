@@ -8,7 +8,7 @@ from lib.py_topologyCheck_fonctions import topologyCheck
 ##Variables
 
 # R�pertoire de l'environnement de travail"
-workspace = "C:/Users/serries/Desktop/testControle_cours/"
+workspace = "C:/Users/serries/Desktop/testControle_2/"
 
 # CSV
 # Dossier du CSV
@@ -25,18 +25,16 @@ geodatabase_topage="Controle_Topage_" + localisation + ".gdb"
 
 # Dataset source
 dataset_source = "source"
-
 # Dataset de la topo
 dataset_topology="topology"
-
-# Dataset de la géometrie
-dataset_geometry="geometry"
+dataset_geometryy="geometry"
 
 # Fichier pour la reference spatiale de la geometrie
 file_srid = "D:/ONEMA_GS/04_Produit/controleTopo/file/shape/TRONCON_COURS_EAU.SHP"
 
 # Nom de la topologie
 topology_name = "Topologie"
+topology_name = "Geometry"
 
 
 ### LANCEMENT DES SCRIPTS ###
@@ -45,7 +43,7 @@ topology_name = "Topologie"
 topologyTopageCheck = topologyCheck()
 
 # Cr�ation de la g�odatabase de traitement
-topologyTopageCheck.createFramework(workspace,geodatabase_topage,dataset_source,dataset_topology,dataset_geometry,file_srid)
+topologyTopageCheck.createFramework(workspace,geodatabase_topage,dataset_source,dataset_topology,dataset_geometryy,file_srid)
 
 # Ajout des fichiers � traiter dans le dataset source
 topologyTopageCheck.add_sourceFeatureFromCSV(workspace + geodatabase_topage + "/" + dataset_source + "/",csvFeature_file,file_srid)
