@@ -14,7 +14,7 @@ class topologyCheck:
     ### SCRIPT ###   
                 
     ## MERGE D'UNE LISTE DE FICHIERS DANS UN REPERTOIRE SOURCE
-    def createFramework(self,destination_folder,geodatabase_topage,dataset_source,dataset_topology,dataset_geometry,file_srid):
+    def createFramework(self,destination_folder,geodatabase_topage,dataset_source,dataset_topology,dataset_geometry,srid):
   
         geodatabaseTopage = geodatabase() 
         datasetTopage = dataset()   
@@ -24,15 +24,15 @@ class topologyCheck:
         
         geodatabaseTopage.create(destination_folder,geodatabase_topage)
         
-        datasetTopage.create(destination_folder + geodatabase_topage,dataset_source,file_srid)
-        datasetTopage.create(destination_folder + geodatabase_topage,dataset_topology,file_srid)
-        datasetTopage.create(destination_folder + geodatabase_topage,dataset_geometry,file_srid)
-        datasetTopage.create(destination_folder + geodatabase_topage,dataset_topology + "_error",file_srid)
+        datasetTopage.create(destination_folder + geodatabase_topage,dataset_source,srid)
+        datasetTopage.create(destination_folder + geodatabase_topage,dataset_topology,srid)
+        datasetTopage.create(destination_folder + geodatabase_topage,dataset_geometry,srid)
+        datasetTopage.create(destination_folder + geodatabase_topage,dataset_topology + "_error",srid)
         
-        featureTopage.create(destination_folder + geodatabase_topage + "/" + dataset_topology + "_error","topo_point_error","POINT",file_srid)
-        featureTopage.create(destination_folder + geodatabase_topage + "/" + dataset_topology + "_error","topo_multipoint_error","MULTIPOINT",file_srid)
-        featureTopage.create(destination_folder + geodatabase_topage + "/" + dataset_topology + "_error","topo_line_error","POLYLINE",file_srid)
-        featureTopage.create(destination_folder + geodatabase_topage + "/" + dataset_topology + "_error","topo_polygon_error","POLYGON",file_srid)
+        featureTopage.create(destination_folder + geodatabase_topage + "/" + dataset_topology + "_error","topo_point_error","POINT",srid)
+        featureTopage.create(destination_folder + geodatabase_topage + "/" + dataset_topology + "_error","topo_multipoint_error","MULTIPOINT",srid)
+        featureTopage.create(destination_folder + geodatabase_topage + "/" + dataset_topology + "_error","topo_line_error","POLYLINE",srid)
+        featureTopage.create(destination_folder + geodatabase_topage + "/" + dataset_topology + "_error","topo_polygon_error","POLYGON",srid)
         
         featureTopage.addField(destination_folder + geodatabase_topage + "/" + dataset_topology + "_error/topo_point_error","OriginObjectClassName","TEXT")
         featureTopage.addField(destination_folder + geodatabase_topage + "/" + dataset_topology + "_error/topo_point_error","OriginObjectID","LONG")
@@ -108,7 +108,7 @@ class topologyCheck:
 
         
     ## MERGE D'UNE LISTE DE FICHIERS DANS UN REPERTOIRE SOURCE
-    def add_sourceFeatureFromCSV(self,destination_folder,csvFeature_file,file_srid):
+    def add_sourceFeatureFromCSV(self,destination_folder,csvFeature_file):
 
         featureTopage = feature()
         

@@ -8,12 +8,13 @@ class dataset:
     ### SCRIPT ###   
 
     ## Création du dataset   
-    def create(self,geodatabase_path,dataset_name,file_srid):
+    def create(self,geodatabase_path,dataset_name,srid):
 
         # Récupérations du système de coordonnées pour les datasets
         
-        dsc = arcpy.Describe(file_srid)
-        coord_sys = dsc.spatialReference
+        #dsc = arcpy.Describe(file_srid)
+        #coord_sys = dsc.spatialReference
+        coord_sys = arcpy.SpatialReference(srid)
         
         # Création du dataset
         #print(u"Création du dataset " + dataset_name)

@@ -71,7 +71,7 @@ class geometryCheck:
         geometryFeature_list.close()
       
         
-    def check_geometry(self,geometry_name,geometry_folder,csvGeometryFeature_file,file_laisse):      
+    def create_geometry(self,geometry_name,geometry_folder,csvGeometryFeature_file,file_laisse):      
         geometryTopage = Geometry()
           
         geometryFeature_dictionary = self.feature_dictionary(csvGeometryFeature_file, geometry_folder)
@@ -95,8 +95,6 @@ class geometryCheck:
             # Réorientation de la géométrie
             backEnd = geometryTopage.recheck_orientation(geometry_name, geometry_folder, networkLine)
 
-            
-            
             if backEnd=="0":
                 print ""
                 print "... FIN ..."
