@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//lib/py_arcpy_dataset.py=utf-8
+encoding//lib/py_arcpy_entity.py=utf-8
 encoding//lib/py_arcpy_feature.py=utf-8
 encoding//lib/py_arcpy_geodatabase.py=utf-8
 encoding//lib/py_geometryCheck_fonctions.py=utf-8

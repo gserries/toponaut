@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-'''
-Created on 25 aoÃ»t 2014
+### ENVIRONNEMENT DE TRAVAIL ###
 
-@author: serries
-'''
+## Chargement des librairies Pythons personnelles
 
 from lib.py_geometryCheck_fonctions import geometryCheck
 
 ##Variables
 
-# Rï¿½pertoire de l'environnement de travail"
+# Répertoire de l'environnement de travail"
 workspace = "C:/Users/serries/Desktop/testControle_cours/"
 
 # CSV
@@ -18,36 +16,34 @@ csv_folder = workspace + "csv/"
 # Nom des CSV
 csvGeometryFeature_file = csv_folder + "listGeometryFeature.csv"
 
-# Gï¿½odatabase topologie
+# Géodatabase topologie
 localisation = "0"
 geodatabase_topage="Controle_Topage_" + localisation + ".gdb"
 
 # Dataset de la topo
 dataset_topology="topology"
-# Dataset de la gÃ©ometrie
+# Dataset de la geometry
 dataset_geometry="geometry"
 
-# Fichier pour la reference spatiale de la geometrie
-file_srid = "D:/ONEMA_GS/04_Produit/controleTopo/file/shape/TRONCON_COURS_EAU.SHP"
-
 # Fichier de la laisse
-file_laisse = workspace + geodatabase_topage + "/" + dataset_topology + "/" + "LandWaterBoundary_line"
+file_laisse = workspace + geodatabase_topage + "/" + dataset_topology + "/LandWaterBoundary_line"
 
-''' Nom de la gÃ©omÃ©trie '''
+# Nom de la géométrie
 geometry_name = "Geometrie"
 
 
 ### LANCEMENT DES SCRIPTS ###
 
-# CrÃ©ation de l'objet objets
+# Création de l'objet objets
 geometryTopageCheck = geometryCheck()
 
-# VÃ©rification de la geometrie (continuitÃ© du rÃ©seau)
+# Import des fichiers concernés par la géométrie
 geometryTopageCheck.add_geometryFeatureFromTopologyDataset(geometry_name,workspace + geodatabase_topage + "/" + dataset_topology + "/", workspace + geodatabase_topage + "/" + dataset_geometry + "/", csvGeometryFeature_file)
 
-# Check de la gÃ©omÃ©trie
-geometryTopageCheck.check_geometry(geometry_name, workspace + geodatabase_topage + "/" + dataset_geometry + "/", csvGeometryFeature_file,file_laisse)
+# Création de la géométrie
+geometryTopageCheck.create_geometry(geometry_name, workspace + geodatabase_topage + "/" + dataset_geometry + "/", csvGeometryFeature_file,file_laisse)
 
-# ReCheck de la gÃ©omÃ©trie
+# Correction de la géométrie
 geometryTopageCheck.correct_geometry(geometry_name,workspace + geodatabase_topage + "/" + dataset_geometry + "/",csvGeometryFeature_file,file_laisse)
 
+#raw_input()
