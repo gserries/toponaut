@@ -24,7 +24,6 @@ geodatabase_topage="Controle_Topage_" + localisation + ".gdb"
 
 # Dataset de la topo
 dataset_topology="topology"
-
 # Dataset de la géometrie
 dataset_geometry="geometry"
 
@@ -37,15 +36,18 @@ file_laisse = workspace + geodatabase_topage + "/" + dataset_topology + "/" + "L
 ''' Nom de la géométrie '''
 geometry_name = "Geometrie"
 
+
 ### LANCEMENT DES SCRIPTS ###
 
 # Création de l'objet objets
 geometryTopageCheck = geometryCheck()
 
 # Vérification de la geometrie (continuité du réseau)
-#geometryTopageCheck.add_geometryFeatureFromTopologyDataset(geometry_name,workspace + geodatabase_topage + "/" + dataset_topology + "/", workspace + geodatabase_topage + "/" + dataset_geometry + "/", csvGeometryFeature_file)
+geometryTopageCheck.add_geometryFeatureFromTopologyDataset(geometry_name,workspace + geodatabase_topage + "/" + dataset_topology + "/", workspace + geodatabase_topage + "/" + dataset_geometry + "/", csvGeometryFeature_file)
 
 # Check de la géométrie
-geometryTopageCheck.checkGeometry(geometry_name, workspace + geodatabase_topage + "/" + dataset_geometry + "/", csvGeometryFeature_file,file_laisse)
+geometryTopageCheck.check_geometry(geometry_name, workspace + geodatabase_topage + "/" + dataset_geometry + "/", csvGeometryFeature_file,file_laisse)
 
+# ReCheck de la géométrie
+geometryTopageCheck.correct_geometry(geometry_name,workspace + geodatabase_topage + "/" + dataset_geometry + "/",csvGeometryFeature_file,file_laisse)
 

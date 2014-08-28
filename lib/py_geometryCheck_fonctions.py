@@ -53,7 +53,7 @@ class geometryCheck:
         geometryTopage = Geometry()
          
         # remise à zéro des règles topologiques
-        geometryTopage.create_ArcGISGeometryEnvironment(geometry_folder,geometry_name)
+        geometryTopage.create_arcGISGeometryEnvironment(geometry_folder,geometry_name)
         
         # Ajout des tables
         geometryFeature_list = open(csvGeometryFeature_file, "rb")
@@ -71,9 +71,42 @@ class geometryCheck:
         geometryFeature_list.close()
       
         
-    def checkGeometry(self,geometry_name,geometry_folder,csvGeometryFeature_file,file_laisse):      
+    def check_geometry(self,geometry_name,geometry_folder,csvGeometryFeature_file,file_laisse):      
         geometryTopage = Geometry()
           
         geometryFeature_dictionary = self.feature_dictionary(csvGeometryFeature_file, geometry_folder)
     
-        geometryTopage.check(geometry_name,geometry_folder,geometryFeature_dictionary,file_laisse)    
+        networkLine = geometryFeature_dictionary['2']
+            
+        geometryTopage.check_orientation(geometry_name,geometry_folder,networkLine,file_laisse)   
+    
+
+    def correct_geometry(self,geometry_name,geometry_folder,csvGeometryFeature_file,file_laisse):       
+        geometryTopage = Geometry()
+          
+        geometryFeature_dictionary = self.feature_dictionary(csvGeometryFeature_file, geometry_folder)
+    
+        networkLine = geometryFeature_dictionary['2']
+                  
+        for i in range(1,10) :#@UnusedVariable
+            # Correction des problèmes d'orientation de la géométrie. Le faire plusieurs fois
+            geometryTopage.correct_orientation(geometry_name,geometry_folder,networkLine)
+            
+            # Réorientation de la géométrie
+            backEnd = geometryTopage.recheck_orientation(geometry_name, geometry_folder, networkLine)
+
+            
+            
+            if backEnd=="0":
+                print ""
+                print "... FIN ..."
+                print ""
+                break
+            
+            else:
+                print "Encore " + backEnd + " cours d'eau ont un sens de digitalisation contraire."
+                print ""
+                print "NOUVELLE BOUCLE..."
+                print ""
+                
+                
